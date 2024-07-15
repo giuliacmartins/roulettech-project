@@ -25,12 +25,11 @@
 #     path('api/', include('blog.urls')),
 # ]
 
-# blog_project/urls.py
-from django.contrib import admin
-from django.urls import path, include
+from django.urls import path
 from blog import views
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', views.home, name='home'),
+    path('posts/', views.post_list, name='post-list'),
+    path('posts/<int:pk>/', views.post_detail, name='post-detail'),
+    path('posts/<int:pk>/comment/', views.create_comment, name='create-comment'),
 ]
