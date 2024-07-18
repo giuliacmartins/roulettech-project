@@ -10,7 +10,7 @@ import './App.css'
 function App() {
   const [posts, setPosts] = useState([])
   const [editPost, setEditPost] = useState(null) 
-  const [token, setToken, removeToken] = useCookies(['mytoken'])
+  const [token, , removeToken] = useCookies(['mytoken'])
   const [showForm, setShowForm] = useState(false)
   let navigate = useNavigate()
 
