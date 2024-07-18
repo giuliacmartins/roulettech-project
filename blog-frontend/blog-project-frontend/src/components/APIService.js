@@ -1,32 +1,32 @@
 export default class APIService {
-    static UpdatePost(post_id, body) {
+    static UpdatePost(post_id, body, token) {
         return fetch(`http://127.0.0.1:8000/api/posts/${post_id}/`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': 'Token 041f511826f7d4a19d497162638be72120a173b9'
+                'Authorization': `Token ${token}`
             },
             body: JSON.stringify(body)
         }).then(resp => resp.json())
     }
 
-    static InsertPost(body) {
+    static InsertPost(body, token) {
         return fetch(`http://127.0.0.1:8000/api/posts/`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': 'Token 041f511826f7d4a19d497162638be72120a173b9'
+                'Authorization': `Token ${token}`
             },
             body: JSON.stringify(body)
         }).then(resp => resp.json())
     }
 
-    static DeletePost(post_id) {
+    static DeletePost(post_id, token) {
         return fetch(`http://127.0.0.1:8000/api/posts/${post_id}/`, {
-            method: 'PUT',
+            method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': 'Token 041f511826f7d4a19d497162638be72120a173b9'
+                'Authorization': `Token ${token}`
             }
         })
     }
@@ -38,6 +38,26 @@ export default class APIService {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(body)
+        }).then(resp => resp.json())
+    }
+
+    static RegisterUser(body) {
+        return fetch(`http://127.0.0.1:8000/api/users/`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(body)
+        }).then(resp => resp.json())
+    }
+
+    static FetchPosts(token) {
+        return fetch(`http://127.0.0.1:8000/api/posts/`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Token ${token}`
+            }
         }).then(resp => resp.json())
     }
 }

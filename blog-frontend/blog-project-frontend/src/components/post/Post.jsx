@@ -1,82 +1,37 @@
-// import React from 'react';
-// import axios from 'axios';
-
-// const Post = ({ post }) => {
-//     const { id, title, content, comments } = post;
-
-//     const handleAddComment = async () => {
-//         const author = prompt('Enter your name:');
-//         const text = prompt('Enter your comment:');
-
-//         if (author && text) {
-//             try {
-//                 await axios.post(`http://127.0.0.1:8000/api/comments/`, { post: id, author, text });
-//                 alert('Comment added successfully!');
-//                 window.location.reload();  // Refresh page to see new comment
-//             } catch (error) {
-//                 console.error('Error adding comment:', error);
-//                 alert('Failed to add comment.');
-//             }
-//         } else {
-//             alert('Author name and comment text are required.');
-//         }
-//     };
-
-//     return (
-//         <div className="post">
-//             <h2>{title}</h2>
-//             <p>{content}</p>
-//             <h3>Comments:</h3>
-//             <ul>
-//                 {comments.map(comment => (
-//                     <li key={comment.id}>
-//                         <strong>{comment.author}:</strong> {comment.text}
-//                     </li>
-//                 ))}
-//             </ul>
-//             <button onClick={handleAddComment}>Add Comment</button>
-//         </div>
-//     );
-// };
-
-// export default Post;
-
 import React from 'react'
 import APIService from '../APIService'
+import { useCookies } from 'react-cookie'
+import './Post.css'
 
 function Post(props) {
+    const [token] = useCookies(['mytoken']);
 
     const editBtn = (post) => {
-        props.editBtn(post)
-    }
+        props.editBtn(post);
+    };
 
     const deleteBtn = (post) => {
-        APIService.DeletePost(post.id)
+        APIService.DeletePost(post.id, token['mytoken'])
         .then(() => props.deleteBtn(post))
-        .catch(error => console.log(error))
-    }
+        .catch(error => console.log(error));
+    };
 
     return (
-        <div>
+        <div className="posts-container">
             {props.posts && props.posts.map(post => {
                 return (
-                    <div key={post.id}>
-                        <h1>{post.title}</h1>
-                        <p>{post.description}</p>
-
-                        <div className="row">
-                            <div>
-                                <button onClick={() => editBtn(post)}>Update</button>
-                            </div>
-                            <div>
-                                <button onClick={() => deleteBtn(post)}>Delete</button>
-                            </div>
+                    <div key={post.id} className="post-box">
+                        <h1 className="post-title">{post.title}</h1>
+                        <p className="post-description">{post.description}</p>
+                        <div className="post-actions">
+                            <button className="post-button" onClick={() => editBtn(post)}>Update</button>
+                            <button className="post-button delete-button" onClick={() => deleteBtn(post)}>Delete</button>
                         </div>
                     </div>
-                )
+                );
             })}
         </div>
-    )
+    );
 }
 
-export default Post
+export default Post;
