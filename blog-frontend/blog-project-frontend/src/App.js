@@ -35,9 +35,16 @@
 
 import React, { useEffect, useState } from 'react'
 import Post from './components/post/Post'
+import Navbar from './components/navbar/Navbar'
+import Form from './components/form/Form'
+import { useNavigate } from 'react-router-dom'
+import { useCookies } from 'react-cookie'
 
 function App() {
   const [posts, setPosts] = useState([])
+  const [editPost, setEditPost] = useState('')
+  const [token, setToken, removeToken] = useCookies(['mytoken'])
+  let navigate = useNavigate()
 
   useEffect(() => {
     fetch('http://localhost:8000/api/posts/', {
@@ -52,10 +59,54 @@ function App() {
     .catch(error =>  console.log(error))
   }, [])
 
+  const editBtn = (post) => {
+    setEditPost(post)
+  }
+
+  const deleteBtn = (post) => {
+    const new_post = posts.filter(mypost => {
+      if (mypost.id === post.id) {
+        return false
+      }
+      return true
+    })
+    setPosts(new_post)
+  }
+
+  const updatedInfo = (post) => {
+    const new_post = posts.map(mypost => {
+      if (mypost.id === post.id) {
+        return post
+      } else {
+        return mypost
+      }
+    })
+    setPosts(new_post)
+  }
+
+  const insertedInfo = (post) => {
+    const new_post = [...posts,post]
+    setPosts(new_post)
+  }
+
+  const postForm = () => {
+    setEditPost({title:'', description:''})
+  }
+
+  const logoutBtn = () => {
+    removeToken(['mytoken'])
+  }
 
   return (
     <div className="app">
-      <Post posts={posts} />
+      <Navbar logoutBtn={logoutBtn} />
+      <div className="row">
+        <div>
+          <button onClick={postForm}>Create A Post</button>
+        </div>
+      </div>
+      <Post posts={posts} editBtn={editBtn} deleteBtn={deleteBtn} />
+      <Form post={editPost} updatedInfo={updatedInfo} insertedInfo={insertedInfo} />
     </div>
   )
 }

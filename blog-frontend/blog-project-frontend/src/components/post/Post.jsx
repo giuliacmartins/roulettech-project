@@ -42,15 +42,36 @@
 // export default Post;
 
 import React from 'react'
+import APIService from '../APIService'
 
 function Post(props) {
+
+    const editBtn = (post) => {
+        props.editBtn(post)
+    }
+
+    const deleteBtn = (post) => {
+        APIService.DeletePost(post.id)
+        .then(() => props.deleteBtn(post))
+        .catch(error => console.log(error))
+    }
+
     return (
         <div>
             {props.posts && props.posts.map(post => {
                 return (
-                    <div>
+                    <div key={post.id}>
                         <h1>{post.title}</h1>
                         <p>{post.description}</p>
+
+                        <div className="row">
+                            <div>
+                                <button onClick={() => editBtn(post)}>Update</button>
+                            </div>
+                            <div>
+                                <button onClick={() => deleteBtn(post)}>Delete</button>
+                            </div>
+                        </div>
                     </div>
                 )
             })}
