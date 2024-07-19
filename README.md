@@ -1,5 +1,7 @@
 # Simple Blog Project
 
+Demo Video: https://drive.google.com/file/d/1_g_ZBJRmRXj8znxtcVusk3k3AxbGDuEX/view?usp=sharing
+
 ## Overview
 
 This project is a simple blog application featuring a frontend built with React.js and a backend powered by Django. It allows users to view, create, and manage blog posts. The project is deployed on AWS, utilizing S3 for frontend hosting, EC2 for backend hosting.
