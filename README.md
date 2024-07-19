@@ -6,12 +6,35 @@ This project is a simple blog application featuring a frontend built with React.
 
 ## Tech Stack
 
-Frontend: React.js
+Frontend: React.js 
+
 -JavaScript library for building user interfaces.
 
-Backend: Django
+Backend: Django 
+
 -Python web framework for building robust backend APIs.
 
-Deployment:
--Frontend: AWS S3
+Deployment: 
+
+-Frontend: AWS S3 
+
 -Backend: AWS EC2
+
+## Architecture
+
+Frontend: 
+
+-React.js application served as static files from an AWS S3 bucket.
+
+Backend:
+
+-Django application hosted on an AWS EC2 instance.
+
+## Deployment
+
+### Frontend Deployment (React.js)
+
+1. Build the React Application
+
+`npm run build`
+
