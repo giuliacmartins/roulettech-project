@@ -32,9 +32,36 @@ Backend:
 
 ## Deployment
 
-### Frontend Deployment (React.js)
+### Running the React Frontend
 
-1. Build the React Application
+1. Navigate to the frontend directory
 
-`npm run build`
+`cd blog-project-frontend`
 
+2. Install dependencies (if needed)
+
+`npm install`
+
+3. Start the development server
+
+`npm start`
+
+- The React application should now be running at `http://localhost:3000`
+
+### Running the Django Backend
+
+1. Navigate to the backend directory
+
+`cd blog-backend`
+
+2. Run database migrations
+
+`python manage.py migrate`
+
+-You would have to install any packages needed such as rest framework and corsheaders prior along with python and pip 
+
+3. Start the Django development server
+
+`python manage.py runserver`
+
+The Django application should now be running at `http://localhost:8000`
